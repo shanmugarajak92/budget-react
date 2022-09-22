@@ -2,9 +2,6 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
- git remote add origin https://github.com/shanmugarajak92/budget_app.git
- git branch -M main
- git push -u origin main
 
 ## Available Scripts
 
