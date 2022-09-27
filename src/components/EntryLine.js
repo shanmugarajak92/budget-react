@@ -1,25 +1,30 @@
-import React from 'react'
-import { Grid, Icon, Segment } from 'semantic-ui-react'
+import React, { Fragment } from "react";
+import { Grid, Icon, Segment } from "semantic-ui-react";
 
-function EntryLine({description, value, color}) {
+function EntryLine({
+  id,
+  description,
+  value,
+  isExpense,
+  deleteEntry,
+  editEntry,
+}) {
   return (
-    <Segment color={color}>
-    <Grid columns={3} divided>
-      <Grid.Row>
-        <Grid.Column textAlign="left">
-         {description}
-        </Grid.Column>
-        <Grid.Column>
-          {value}
-        </Grid.Column>
-        <Grid.Column textAlign="center">
-          <Icon name="edit" bordered/>
-          <Icon name="trash" bordered/>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-    </Segment>
-  )
+    <Fragment>
+      <Segment color={isExpense ? "red" : "green"}>
+        <Grid columns={3} divided>
+          <Grid.Row>
+            <Grid.Column textAlign="left">{description}</Grid.Column>
+            <Grid.Column>{value}</Grid.Column>
+            <Grid.Column textAlign="center">
+              <Icon name="edit" bordered onClick={() => editEntry(id)} />
+              <Icon name="trash" bordered onClick={() => deleteEntry(id)} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+    </Fragment>
+  );
 }
 
-export default EntryLine
+export default EntryLine;
