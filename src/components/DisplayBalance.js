@@ -1,11 +1,11 @@
-import React from 'react'
-import { Statistic } from 'semantic-ui-react'
+import React from "react";
+import { Statistic } from "semantic-ui-react";
 
-export default function DisplayBalance({value}) {
+export default function DisplayBalance({ value }) {
   return (
     <Statistic size="small">
-        <Statistic.Label>Your Balance:</Statistic.Label>
-        <Statistic.Value>{value}</Statistic.Value>
+      <Statistic.Label>Your Balance:</Statistic.Label>
+      <Statistic.Value>{isNaN(value) ? 0 : value}</Statistic.Value>
     </Statistic>
-  )
+  );
 }

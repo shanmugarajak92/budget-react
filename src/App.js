@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "semantic-ui-react";
 import "./App.css";
 import DisplayBalance from "./components/DisplayBalance";
@@ -7,85 +7,22 @@ import EnteryLines from "./components/EnterLines";
 import MainHeader from "./components/MainHeader";
 import ModalEdit from "./components/ModalEdit";
 import NewEntryForm from "./components/NewEntryForm";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllEntries } from "./actions/entries.actions";
 
 function App() {
-  var initialEntries = [
-    {
-      id: 1,
-      description: "Work Income",
-      value: 1000.0,
-      isExpense: false,
-      color: "green",
-    },
-    {
-      id: 2,
-      description: "Groceries",
-      value: 100.0,
-      isExpense: true,
-      color: "red",
-    },
-    {
-      id: 3,
-      description: "Power Bill",
-      value: 150.0,
-      isExpense: true,
-      color: "red",
-    },
-    {
-      id: 4,
-      description: "Water Bill",
-      value: 50.0,
-      isExpense: true,
-      color: "red",
-    },
-  ];
-  const [entries, setEntries] = useState(initialEntries);
-  const [description, setDescription] = useState();
-  const [value, setValue] = useState();
-  const [isExpense, setIsExpense] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [entryId, setEntryId] = useState();
+  //const [isOpen, setIsOpen] = useState(false);
   const [totalIncome, setTotalIncome] = useState();
   const [totalExpense, setTotalExpense] = useState();
   const [total, setTotal] = useState();
-
-  function deleteEntryHandler(id) {
-    const result = entries.filter((e) => e.id !== id);
-    setEntries(result);
-  }
-
-  function addEntry() {
-    const result = entries.concat({
-      id: entries.length + 1,
-      description: description,
-      value: value,
-      isExpense: isExpense,
-    });
-    setEntries(result);
-  }
-
-  function editEntry(id) {
-    if (id) {
-      const val = entries.find((e) => e.id === id);
-      setEntryId(id);
-      setDescription(val.description);
-      setIsExpense(val.isExpense);
-      setValue(val.value);
-      setIsOpen(true);
-    }
-  }
+  const [entry, setEntry] = useState();
+  const { isOpen, id } = useSelector((state) => state.modals);
+  const entries = useSelector((state) => state.entries);
 
   useEffect(() => {
-    if (!isOpen && entryId) {
-      const index = entries.findIndex((e) => e.id === entryId);
-      const newEntries = [...entries];
-      newEntries[index].description = description;
-      newEntries[index].value = value;
-      newEntries[index].isExpense = isExpense;
-      resetEntry();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
+    const index = entries.findIndex((e) => e.id === id);
+    setEntry(entries[index]);
+  }, [isOpen, id, entries]);
 
   useEffect(() => {
     let totalIncomes = 0;
@@ -101,49 +38,30 @@ function App() {
     setTotal(totalIncomes - totalExpense);
   }, [entries]);
 
-  function resetEntry() {
-    setDescription("");
-    setIsExpense(true);
-    setValue("");
-  }
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllEntries());
+  }, [dispatch]);
 
   return (
-    <Container>
-      <MainHeader type="h1" />
-      <DisplayBalance value={total} />
-      <DisplayBalances
-        size="tiny"
-        income={totalIncome}
-        expense={totalExpense}
-      />
-      <MainHeader type="h3" title="History" />
-      <EnteryLines
-        entries={entries}
-        deleteEntry={deleteEntryHandler}
-        editEntry={editEntry}
-      />
-      <MainHeader type="h3" title="Add new transaction" />
-      <NewEntryForm
-        addEntry={addEntry}
-        description={description}
-        value={value}
-        isExpense={isExpense}
-        setDescription={setDescription}
-        setValue={setValue}
-        setIsExpense={setIsExpense}
-      />
+    <React.Fragment>
+      <Container>
+        <MainHeader type="h1" />
+        <DisplayBalance value={isNaN(total) ? 0 : total} />
+        <DisplayBalances
+          size="tiny"
+          income={totalIncome}
+          expense={totalExpense}
+        />
+        <MainHeader type="h3" title="History" />
+        <EnteryLines entries={entries} />
+        <MainHeader type="h3" title="Add new transaction" />
+        <NewEntryForm />
 
-      <ModalEdit
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        description={description}
-        value={value}
-        isExpense={isExpense}
-        setDescription={setDescription}
-        setValue={setValue}
-        setIsExpense={setIsExpense}
-      />
-    </Container>
+        <ModalEdit isOpen={isOpen} {...entry} />
+      </Container>
+    </React.Fragment>
   );
 }
 

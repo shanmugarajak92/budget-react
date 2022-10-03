@@ -1,0 +1,30 @@
+{ "entries": [
+  {
+    "id": 1,
+    "description": "Work Income",
+    "value": 1000.0,
+    "isExpense": false,
+    "color": "green"
+  },
+  {
+    "id": 2,
+    "description": "Groceries",
+    "value": 100.0,
+    "isExpense": true,
+    "color": "red"
+  },
+  {
+    "id": 3,
+    "description": "Power Bill",
+    "value": 150.0,
+    "isExpense": true,
+    "color": "red"
+  },
+  {
+    "id": 4,
+    "description": "Water Bill",
+    "value": 50.0,
+    "isExpense": true,
+    "color": "red"
+  }
+]}

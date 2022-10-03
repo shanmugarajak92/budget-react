@@ -9,13 +9,13 @@ export default function DisplayBalances({ size, expense, income }) {
           <Grid.Column>
             <Statistic size="tiny" color="green">
               <Statistic.Label>Income</Statistic.Label>
-              <Statistic.Value>{income}</Statistic.Value>
+              <Statistic.Value>{isNaN(income) ? 0 : income}</Statistic.Value>
             </Statistic>
           </Grid.Column>
           <Grid.Column>
             <Statistic size="tiny" color="red">
               <Statistic.Label>Expense</Statistic.Label>
-              <Statistic.Value>{expense}</Statistic.Value>
+              <Statistic.Value>{isNaN(expense) ? 0 : expense}</Statistic.Value>
             </Statistic>
           </Grid.Column>
         </Grid.Row>

@@ -1,0 +1,55 @@
+{
+  "entries": [
+    {
+      "id": 1,
+      "description": "Work Income",
+      "color": "green"
+    },
+    {
+      "id": 2,
+      "description": "Groceries",
+      "color": "red"
+    },
+    {
+      "id": 3,
+      "description": "Power Bill",
+      "color": "red"
+    },
+    {
+      "id": 4,
+      "description": "Water Bill",
+      "color": "red"
+    },
+    {
+      "id": "abf6ba55-1069-4c38-9fff-5432795f2bca",
+      "description": "new"
+    }
+  ],
+  "values": [
+    {
+      "id": 1,
+      "value": 1000,
+      "isExpense": false
+    },
+    {
+      "id": 2,
+      "value": 100,
+      "isExpense": true
+    },
+    {
+      "id": 3,
+      "value": 150,
+      "isExpense": true
+    },
+    {
+      "id": 4,
+      "value": 50,
+      "isExpense": true
+    },
+    {
+      "id": "abf6ba55-1069-4c38-9fff-5432795f2bca",
+      "isExpense": true,
+      "value": 2
+    }
+  ]
+}
